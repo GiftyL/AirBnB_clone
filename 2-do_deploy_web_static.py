@@ -1,10 +1,10 @@
 #!/usr/bin/python3
 """
-Fabric script that generates archive
+Fabric script that distributes an archive to your web servers
 """
 
-from fabric.api import *
 from datetime import datetime
+from fabric.api import *
 import os
 
 env.hosts = ["35.196.96.41", "3.234.218.189"]
@@ -13,7 +13,7 @@ env.user = "ubuntu"
 
 def do_pack():
     """
-        return the archive path if correctly gernerated.
+        return the archive path if archive has generated correctly.
     """
 
     local("mkdir -p versions")
@@ -29,7 +29,7 @@ def do_pack():
 
 def do_deploy(archive_path):
     """
-        Distribute an archive to our web servers
+        Distribute archive.
     """
     if os.path.exists(archive_path):
         archived_file = archive_path[9:]
@@ -49,14 +49,4 @@ def do_deploy(archive_path):
         print("New version deployed!")
         return True
 
-    return False
-
-
-def deploy():
-    """
-    Deploy function do_pack and do_deploy.
-    """
-    path = do_pack()
-    if path:
-        do_deploy(path)
     return False
